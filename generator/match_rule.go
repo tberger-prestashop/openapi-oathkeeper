@@ -27,10 +27,10 @@ var (
 	)
 	integerToken = rex.Chars.Digits().Repeat().OneOrMore()
 	stringToken  = rex.Common.Class(
-			rex.Chars.Alphanumeric(),
-			rex.Chars.Single('_'),
-			rex.Chars.Single('-'),
-		).Repeat().OneOrMore()
+		rex.Chars.Alphanumeric(),
+		rex.Chars.Single('_'),
+		rex.Chars.Single('-'),
+	).Repeat().OneOrMore()
 	defaultToken = rex.Chars.Any().Repeat().OneOrMore()
 )
 
@@ -80,7 +80,7 @@ func createParamsMatchingGroup(name string, params *openapi3.Parameters) string 
 	switch paramType := paramSchema.Type; {
 	case paramType.Is("string"):
 		if len(paramSchema.Enum) > 0 {
-			
+
 			// Handle case with enum schema = {"enum":["dev","staging","prod"],"type":"string"}
 			enumTokens := make([]dialect.Token, 0, len(paramSchema.Enum))
 			enumTokens = append(enumTokens, rex.Chars.Begin())
