@@ -177,7 +177,7 @@
       Methods: ([]string) (len=1) {
         (string) (len=6) "DELETE"
       },
-      URL: (string) (len=70) "<(https://cerberauth\\.com/api/v3|http://swagger\\.io/api/v3)>/user/<.+>"
+      URL: (string) (len=85) "<(https://cerberauth\\.com/api/v3|http://swagger\\.io/api/v3)>/user/<[[:alnum:]_\\x2D]+>"
     }),
     Authenticators: ([]oathkeeper.RuleHandler) (len=1) {
       (oathkeeper.RuleHandler) {
@@ -390,7 +390,7 @@
       Methods: ([]string) (len=1) {
         (string) (len=3) "GET"
       },
-      URL: (string) (len=70) "<(https://cerberauth\\.com/api/v3|http://swagger\\.io/api/v3)>/user/<.+>"
+      URL: (string) (len=85) "<(https://cerberauth\\.com/api/v3|http://swagger\\.io/api/v3)>/user/<[[:alnum:]_\\x2D]+>"
     }),
     Authenticators: ([]oathkeeper.RuleHandler) (len=1) {
       (oathkeeper.RuleHandler) {
@@ -588,7 +588,7 @@
       Methods: ([]string) (len=1) {
         (string) (len=3) "PUT"
       },
-      URL: (string) (len=70) "<(https://cerberauth\\.com/api/v3|http://swagger\\.io/api/v3)>/user/<.+>"
+      URL: (string) (len=85) "<(https://cerberauth\\.com/api/v3|http://swagger\\.io/api/v3)>/user/<[[:alnum:]_\\x2D]+>"
     }),
     Authenticators: ([]oathkeeper.RuleHandler) (len=1) {
       (oathkeeper.RuleHandler) {

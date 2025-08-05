@@ -219,7 +219,7 @@
             "methods": [
                 "DELETE"
             ],
-            "url": "<(https://www\\.cerberauth\\.com/api|https://api\\.cerberauth\\.com/api)>/user/<.+>"
+            "url": "<(https://www\\.cerberauth\\.com/api|https://api\\.cerberauth\\.com/api)>/user/<[[:alnum:]_\\x2D]+>"
         },
         "authenticators": [
             {
@@ -480,7 +480,7 @@
             "methods": [
                 "GET"
             ],
-            "url": "<(https://www\\.cerberauth\\.com/api|https://api\\.cerberauth\\.com/api)>/user/<.+>"
+            "url": "<(https://www\\.cerberauth\\.com/api|https://api\\.cerberauth\\.com/api)>/user/<[[:alnum:]_\\x2D]+>"
         },
         "authenticators": [
             {
@@ -730,7 +730,7 @@
             "methods": [
                 "PUT"
             ],
-            "url": "<(https://www\\.cerberauth\\.com/api|https://api\\.cerberauth\\.com/api)>/user/<.+>"
+            "url": "<(https://www\\.cerberauth\\.com/api|https://api\\.cerberauth\\.com/api)>/user/<[[:alnum:]_\\x2D]+>"
         },
         "authenticators": [
             {
