@@ -26,8 +26,12 @@ var (
 		).Repeat().ZeroOrOne(),
 	)
 	integerToken = rex.Chars.Digits().Repeat().OneOrMore()
-	stringToken  = rex.Chars.Any().Repeat().OneOrMore()
-	defaultToken = stringToken
+	stringToken  = rex.Common.Class(
+			rex.Chars.Alphanumeric(),
+			rex.Chars.Single('_'),
+			rex.Chars.Single('-'),
+		).Repeat().OneOrMore()
+	defaultToken = rex.Chars.Any().Repeat().OneOrMore()
 )
 
 func encapsulateRegex(r *regexp.Regexp) string {
@@ -56,7 +60,7 @@ func createServerUrlMatchingGroup(serverUrls []string) string {
 	return encapsulateRegexToken(rex.Group.Composite(serverUrlsTokens...))
 }
 
-func getPathParamType(name string, params *openapi3.Parameters) *openapi3.Types {
+func getPathParamSchema(name string, params *openapi3.Parameters) *openapi3.Schema {
 	if params == nil {
 		log.Default().Print("no path parameters has been defined")
 		return nil
@@ -67,15 +71,28 @@ func getPathParamType(name string, params *openapi3.Parameters) *openapi3.Types 
 		log.Default().Printf("path param %s is not defined", name)
 		return nil
 	}
-
-	return p.Schema.Value.Type
+	return p.Schema.Value
 }
 
 func createParamsMatchingGroup(name string, params *openapi3.Parameters) string {
 	var t dialect.Token
-	switch paramType := getPathParamType(name, params); {
+	paramSchema := getPathParamSchema(name, params)
+	switch paramType := paramSchema.Type; {
 	case paramType.Is("string"):
-		t = stringToken
+		if len(paramSchema.Enum) > 0 {
+			
+			// Handle case with enum schema = {"enum":["dev","staging","prod"],"type":"string"}
+			enumTokens := make([]dialect.Token, 0, len(paramSchema.Enum))
+			enumTokens = append(enumTokens, rex.Chars.Begin())
+			for _, enumValue := range paramSchema.Enum {
+				enumTokens = append(enumTokens, rex.Common.Text(enumValue.(string)))
+			}
+			enumTokens = append(enumTokens, rex.Chars.End())
+			t = rex.Group.Composite(enumTokens...)
+		} else {
+			// Default case for string type
+			t = stringToken
+		}
 	case paramType.Is("number"):
 		t = numberToken
 	case paramType.Is("integer"):

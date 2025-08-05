@@ -13,3 +13,5 @@
 
 openapi-oathkeeper
 dist/
+
+.dev/
