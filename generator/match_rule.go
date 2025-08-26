@@ -30,6 +30,7 @@ var (
 		rex.Chars.Alphanumeric(),
 		rex.Chars.Single('_'),
 		rex.Chars.Single('-'),
+		rex.Chars.Single('.'),
 	).Repeat().OneOrMore()
 	defaultToken = rex.Chars.Any().Repeat().OneOrMore()
 )
